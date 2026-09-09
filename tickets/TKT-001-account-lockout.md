@@ -140,6 +140,3 @@ End-user guide for password resets: KB-001
 
 ![Unlock verified](../screenshots/ad/tkt-001-unlock-verified.png)
 
-**Zoho Desk ticket thread — triage, first response, and resolution**
-
-![Zoho ticket](../screenshots/zoho/tkt-001-ticket-thread.png)
