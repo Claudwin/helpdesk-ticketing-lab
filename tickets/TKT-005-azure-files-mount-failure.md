@@ -1,0 +1,57 @@
+
+# TKT-005 — Azure File Mount Failure
+
+| Field | Value |
+|-------|-------|
+| **User** | John Wayne |
+| **Priority** | Medium |
+| **Category** | Network |
+| **Opened** |  10:28 am |
+| **Resolved** | 11:56 am |
+| **Time to resolve** | 1 hr 20 MINS |
+| **SLA met** | Yes (target: 1h first response / 4h resolution) |
+
+---
+
+## Symptom
+
+User reported that they were unable to access the shared folder in azure and access needed files. They were able to access the files yerterday but not today.
+
+## Diagnosis
+
+**Reviewed storage account securoty properties and activity log.**
+
+Portal error said 401 / "you don't have access" → checked role assignments and found them unchanged; account has no identity-based auth configured, so ACLs aren't in play → authorization eliminated <br/>
+```nc``` to port 445 succeeded → endpoint reachable, DNS resolving, transport fine → network reachability eliminated <br/>
+Storage firewall showed defaultAction: Deny with an allow list not containing the client IP → cause identified<br/>
+Activity log confirmed who changed it and when
+
+
+## Resolution
+
+**Update the ip address to the correct dominn**
+
+
+## Cause / Fix / Prevention
+
+Shared folder was setup with with a default deny all and was set to enable for specific networks. The ip address that was enabled was incorrect.
+
+**Fix:** 
+
+I keept the setting for enabled from slected networks and update the ip address to the correct address. Allowing only those who should have access will.
+
+
+**Prevention**
+
+For any Azure Storage access failure, check networkRuleSet before auditing IAM. It's one command, it's cheap, and it eliminates the layer that produces the most misleading error message.
+
+## Screenshots
+
+**Domain account lockout policy — threshold, duration, and observation window**
+
+![Access denied error](../screenshots/ad/tkt-003-access-denied.png)
+
+**Failed authentication sequence — five 1326 errors followed by 1909 once the threshold tripped**
+
+![Failed logons](../screenshots/ad/tkt-001-failed-logons.png)
+
