@@ -1,8 +1,8 @@
 # Help Desk Ticketing Lab
 
-A working help desk built on Freshdesk, with tickets resolved against live Active Directory and Microsoft Azure lab environments rather than simulated on paper. Ten tickets were submitted, triaged, and worked to resolution under defined SLA targets, with six requiring hands-on remediation in a real directory or cloud environment.
+A working help desk built on Zohodesk, with tickets resolved against live Active Directory and Microsoft Azure lab environments rather than simulated on paper.Six tickets were submitted, triaged, and worked to resolution under defined SLA targets, requiring hands-on remediation in a real directory or cloud environment.
 
-**Environments:** Windows Server 2022 / Active Directory (`enterprise.lab`) · Microsoft Azure · Freshdesk (Free)
+**Environments:** Windows Server 2022 / Active Directory (`enterprise.lab`) · Microsoft Azure · Zohodesk
 
 ---
 
@@ -10,16 +10,16 @@ A working help desk built on Freshdesk, with tickets resolved against live Activ
 
 | ID | Issue | Category | Priority | Resolved In | SLA |
 |----|-------|----------|----------|-------------|-----|
-| [TKT-001](tickets/TKT-001-account-lockout.md) | Locked out of my account | Password / Login | High | Active Directory | _TBD_ |
-| [TKT-002](tickets/TKT-002-password-reset.md) | Need a password reset ASAP | Password / Login | High | Active Directory | _TBD_ |
-| [TKT-003](tickets/TKT-003-shared-drive-access.md) | Can't access shared drive | Network | Medium | Active Directory | _TBD_ |
-| [TKT-004](tickets/TKT-004-vpn-invalid-credentials.md) | VPN says invalid credentials | Network | High | Active Directory | _TBD_ |
-| [TKT-005](tickets/TKT-005-azure-files-mount-failure.md) | Can't reach the cloud file share | Network | High | Azure | _TBD_ |
-| [TKT-006](tickets/TKT-006-blob-sas-expired.md) | Report link says access denied | Software | Medium | Azure | _TBD_ |
-| [TKT-007](tickets/TKT-007-wifi-disconnecting.md) | Wi-Fi keeps disconnecting | Network / Wi-Fi | Medium | Documented | _TBD_ |
-| [TKT-008](tickets/TKT-008-outlook-wont-open.md) | Outlook won't open | Email / Outlook | Medium | Documented | _TBD_ |
-| [TKT-009](tickets/TKT-009-printer-not-printing.md) | Printer won't print | Printer | Low | Documented | _TBD_ |
-| [TKT-010](tickets/TKT-010-laptop-slow.md) | Laptop is running slow | Hardware / Laptop | Low | Documented | _TBD_ |
+| [TKT-001](tickets/TKT-001-account-lockout.md) | Locked out of my account | Password / Login | High | Active Directory | 4 hrs |
+| [TKT-002](tickets/TKT-002-password-reset.md) | Need a password reset ASAP | Password / Login | High | Active Directory | 4 hrs |
+| [TKT-003](tickets/TKT-003-shared-drive-access.md) | Can't access shared drive | Network | Medium | Active Directory | 1 day |
+| [TKT-004](tickets/TKT-004-vpn-invalid-credentials.md) | VPN says invalid credentials | Network | High | Active Directory | 4 hrs |
+| [TKT-005](tickets/TKT-005-azure-files-mount-failure.md) | Can't reach the cloud file share | Network | High | Azure | 4 hrs |
+| [TKT-006](tickets/TKT-006-blob-sas-expired.md) | Report link says access denied | Software | Medium | Azure | 1 day |
+| [TKT-007](tickets/TKT-007-wifi-disconnecting.md) | Wi-Fi keeps disconnecting | Network / Wi-Fi | Medium | Documeted Diagnostic Workflow
+| [TKT-008](tickets/TKT-008-outlook-wont-open.md) | Outlook won't open | Email / Outlook | Medium | Documeted Diagnostic Workflow
+| [TKT-009](tickets/TKT-009-printer-not-printing.md) | Printer won't print | Printer | Low | Documeted Diagnostic Workflow
+| [TKT-010](tickets/TKT-010-laptop-slow.md) | Laptop is running slow | Hardware / Laptop | Low | Documeted Diagnostic Workflow
 
 ---
 
@@ -31,13 +31,11 @@ A working help desk built on Freshdesk, with tickets resolved against live Activ
 
 <!-- Describe the three connected pieces and how they relate. -->
 
-**Freshdesk (Free tier)** — Ticket intake, categorization, priority assignment, agent workflow, and knowledge base. Configured with six ticket categories and five test contacts, two flagged VIP.
+**Zohodesk** — Ticket intake, categorization, priority assignment, agent workflow, and knowledge base. Configured with six ticket categories and five test contacts, two flagged VIP.
 
 **Active Directory lab** — Windows Server 2022 running in Oracle VirtualBox, domain `enterprise.lab`. OU structure: `OU=Users,OU=<Department>,OU=Departments,DC=enterprise,DC=lab` with `GG_*_Users` global groups. Used to reproduce and resolve account, permission, and authentication issues.
 
 **Azure subscription** — Pay-as-you-go, resources in `storage-lab-rg`. Used to reproduce and resolve cloud storage access issues involving Azure Files and Blob Storage.
-
-<!-- Optional: add a simple diagram or ASCII sketch showing user -> Freshdesk -> agent -> AD/Azure. -->
 
 ## Implementation
 
@@ -70,56 +68,39 @@ Every ticket was worked to the same standard:
 
 ## Screenshots
 
-<!-- Pull 4-6 of your strongest images up here. The rest stay in the individual ticket files. Suggested picks below - replace filenames with your actuals. -->
+**Freshdesk queue with tickets across all priorities**
 
-**Domain account lockout policy — threshold, duration, and observation window**
-
-![Lockout policy](../screenshots/zohodesk/tkt-001-lockout-policy.png)
-
-**Failed authentication sequence — five 1326 errors followed by 1909 once the threshold tripped**
-
-![Failed logons](../screenshots/zohodesk/tkt-001-failed-logons.png)
-
+**TKT-001 — Locating and unlocking a locked AD account**
 **Locked account located and full account state pulled to rule out disabled and expired conditions**
 
 ![Search-ADAccount](../screenshots/zohodesk/tkt-001-search-lockedout.png)
 
+**TKT-003 — NTFS vs. share permission conflict on effective access**
 **Event 4740 showing the lockout event and Caller Computer Name**
 
 ![Event 4740](../screenshots/zohodesk/tkt-001-event-4740.png)
 
+**TKT-005 — Azure Files mount failure traced to storage account firewall**
 **Unlock applied and verified — LockedOut False, BadLogonCount reset to 0**
 
-![Unlock verified](../screenshots/zohodesk/tkt-001-unlock-verified.png)
+![Networking blade before fix](screenshots/azure/tkt-005-networking-before.png)
 
+
+**TKT-06 — Successful mount after adding client IP to network rules**
 **Zoho Desk ticket thread — triage, first response, and resolution**
 
+![Successful mount](screenshots/azure/tkt-005-mount-success.png)
 ![Zoho ticket](../screenshots/zoho/tkt-001-ticket-thread.png)
-
-## Problems Encountered
-
-<!-- Be specific and honest. Genuine dead ends read better than a clean narrative. Candidates:
-- TKT-003: assumed share permissions were the cause; they were correct. Actual cause was NTFS inheritance broken at the folder level.
-- TKT-005: initial assumption was a credential problem on the SMB mount. Storage account key was valid; the failure was network-layer.
-- Freshdesk free tier limits on automations/workflows and how you worked within them.
-- Anything that went sideways in the VM or portal.
--->
-
 ## Solution
 
 <!-- What the finished system does and what the data showed. Reference the metrics rather than restating them. -->
-
-Full breakdown: [docs/metrics-summary.md](docs/metrics-summary.md)
 
 | Metric | Result |
 |--------|--------|
 | Tickets handled | 10 |
 | Resolved against live infrastructure | 6 |
-| Average first response time | _TBD_ |
-| Average time to resolution | _TBD_ |
-| SLA attainment | _TBD_ |
-| Highest-volume category | _TBD_ |
-| Top deflection candidate | _TBD_ |
+| Average first response time | 2 mins |
+| Average time to resolution | 30 mins |
 
 ## Skills Demonstrated
 
