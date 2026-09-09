@@ -57,8 +57,6 @@ A working help desk built on Freshdesk, with tickets resolved against live Activ
 | Medium | 4 hours | 1 business day |
 | Low | 1 business day | 3 business days |
 
-Full policy: [docs/sla-policy.md](docs/sla-policy.md)
-
 ### Ticket handling standard
 
 Every ticket was worked to the same standard:
@@ -70,42 +68,33 @@ Every ticket was worked to the same standard:
 5. **Documentation** — Cause / Fix / Prevention recorded in the ticket before closure
 6. **Status progression** — Open → In Progress → Pending (if awaiting user) → Resolved
 
-### Escalation
-
-Tier 1 to Tier 2 handoff criteria are defined in [docs/escalation-criteria.md](docs/escalation-criteria.md). One ticket in this set met the criteria and was escalated with a documented handoff note.
-
-### Knowledge base
-
-Four articles were written to deflect the most repeated issue types:
-
-- [KB-001 — Self-service password reset](kb-articles/KB-001-self-service-password-reset.md)
-- [KB-002 — Requesting shared drive access](kb-articles/KB-002-shared-drive-access-requests.md)
-- [KB-003 — Mounting Azure file shares](kb-articles/KB-003-mounting-azure-file-shares.md)
-- [KB-004 — Requesting secure file links](kb-articles/KB-004-requesting-secure-file-links.md)
-
 ## Screenshots
 
 <!-- Pull 4-6 of your strongest images up here. The rest stay in the individual ticket files. Suggested picks below - replace filenames with your actuals. -->
 
-**Freshdesk queue with tickets across all priorities**
+**Domain account lockout policy — threshold, duration, and observation window**
 
-![Ticket queue](screenshots/freshdesk/queue-overview.png)
+![Lockout policy](../screenshots/zohodesk/tkt-001-lockout-policy.png)
 
-**TKT-001 — Locating and unlocking a locked AD account**
+**Failed authentication sequence — five 1326 errors followed by 1909 once the threshold tripped**
 
-![Locked account search](screenshots/ad/tkt-001-search-lockedout.png)
+![Failed logons](../screenshots/zohodesk/tkt-001-failed-logons.png)
 
-**TKT-003 — NTFS vs. share permission conflict on effective access**
+**Locked account located and full account state pulled to rule out disabled and expired conditions**
 
-![Effective permissions](screenshots/ad/tkt-003-effective-perms.png)
+![Search-ADAccount](../screenshots/zohodesk/tkt-001-search-lockedout.png)
 
-**TKT-005 — Azure Files mount failure traced to storage account firewall**
+**Event 4740 showing the lockout event and Caller Computer Name**
 
-![Networking blade before fix](screenshots/azure/tkt-005-networking-before.png)
+![Event 4740](../screenshots/zohodesk/tkt-001-event-4740.png)
 
-**TKT-005 — Successful mount after adding client IP to network rules**
+**Unlock applied and verified — LockedOut False, BadLogonCount reset to 0**
 
-![Successful mount](screenshots/azure/tkt-005-mount-success.png)
+![Unlock verified](../screenshots/zohodesk/tkt-001-unlock-verified.png)
+
+**Zoho Desk ticket thread — triage, first response, and resolution**
+
+![Zoho ticket](../screenshots/zoho/tkt-001-ticket-thread.png)
 
 ## Problems Encountered
 
