@@ -50,25 +50,17 @@ End-user guide to request shared drive access: KB-002 - Requesting shared drive 
 
 ## Screenshots
 
-**Domain account lockout policy — threshold, duration, and observation window**
+**Unable to access reports folder**
 
-![Access denied error](../screenshots/ad/tkt-003-access-denied.png)
+![Access denied](../screenshots/zohodesk/tkt-003/Screenshot%202026-09-02%20at%205.26.59%E2%80%AFAM.png)
 
-**Failed authentication sequence — five 1326 errors followed by 1909 once the threshold tripped**
+**Review Tomas Access**
 
-![Failed logons](../screenshots/ad/tkt-001-failed-logons.png)
+![Tomas Access](../screenshots/zohodesk/tkt-003/Screenshot%202026-09-01%20at%208.51.17%E2%80%AFPM.png)
 
-**Locked account located and full account state pulled to rule out disabled and expired conditions**
+**Enabled Inheritance on reports folder**
 
-![Search-ADAccount](../screenshots/ad/tkt-001-search-lockedout.png)
-
-**Event 4740 showing the lockout event and Caller Computer Name**
-
-![Event 4740](../screenshots/ad/tkt-001-event-4740.png)
-
-**Unlock applied and verified — LockedOut False, BadLogonCount reset to 0**
-
-![Unlock verified](../screenshots/ad/tkt-001-unlock-verified.png)
+![Enable Inheritance](../screenshots/zohodesk/tkt-003/Inheritance%20enabled.png)
 
 **Zoho Desk ticket thread — triage, first response, and resolution**
 
