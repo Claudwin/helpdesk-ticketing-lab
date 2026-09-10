@@ -31,9 +31,10 @@ A working help desk built on Zohodesk, with tickets resolved against live Active
 
 <!-- Describe the three connected pieces and how they relate. -->
 
-**Zohodesk** — Ticket intake, categorization, priority assignment, agent workflow, and knowledge base. Configured with six ticket categories and five test contacts, two flagged VIP.
+**Zohodesk** — Ticket intake, categorization, priority assignment, agent workflow, and knowledge base. Configured with six ticket categories and five test contacts.
 
 **Active Directory lab** — Windows Server 2022 running in Oracle VirtualBox, domain `enterprise.lab`. OU structure: `OU=Users,OU=<Department>,OU=Departments,DC=enterprise,DC=lab` with `GG_*_Users` global groups. Used to reproduce and resolve account, permission, and authentication issues.
+Repository for [Windows Server 2022 infrastructure](https://github.com/Claudwin/MS-365-Windows-Server-2022-Project) 
 
 **Azure subscription** — Pay-as-you-go, resources in `storage-lab-rg`. Used to reproduce and resolve cloud storage access issues involving Azure Files and Blob Storage.
 
@@ -68,8 +69,6 @@ Every ticket was worked to the same standard:
 
 ## Screenshots
 
-**Freshdesk queue with tickets across all priorities**
-
 **TKT-001 — Locating and unlocking a locked AD account**
 **Locked account located and full account state pulled to rule out disabled and expired conditions**
 
@@ -91,6 +90,10 @@ Every ticket was worked to the same standard:
 
 ![Successful mount](screenshots/azure/tkt-005-mount-success.png)
 ![Zoho ticket](../screenshots/zoho/tkt-001-ticket-thread.png)
+
+**Zohodesk queue with tickets across all priorities**
+![ZohoDesk Queue](../screenshots/zohodesk/Zohodesk%20Tickets.png)
+
 ## Solution
 
 <!-- What the finished system does and what the data showed. Reference the metrics rather than restating them. -->
