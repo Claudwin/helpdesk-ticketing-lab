@@ -88,7 +88,7 @@ Every ticket was worked to the same standard:
 ![Access denied error](../main/screenshots/zohodesk/tkt-006/tkt-006-03-fault-sas-expired.png)
 
 **Zohodesk queue with tickets across all priorities**
-![ZohoDesk Queue](../main/screenshots/zohodesk/Zohodesk%Tickets.png)
+![ZohoDesk Queue](../main/screenshots/zohodesk/Zohodesk%20Tickets.png)
 
 ## Solution
 
