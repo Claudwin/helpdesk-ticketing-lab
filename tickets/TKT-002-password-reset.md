@@ -68,29 +68,20 @@ Cause — Password exceeded the domain maximum age and expired; the account was 
 
 Enable expiry notifications so users are warned before the deadline, and publish a self-service reset article (that's your KB-001).
 
-End-user guide for password resets: KB-001
 
 ## Screenshots
 
 **Domain account lockout policy — threshold, duration, and observation window**
 
-![Lockout policy](../screenshots/ad/tkt-001-lockout-policy.png)
+![Lockout policy](../screenshots/zohodesk/tkt-002/Password%20Expired.png)
 
-**Failed authentication sequence — five 1326 errors followed by 1909 once the threshold tripped**
+**Failed authentication**
 
-![Failed logons](../screenshots/ad/tkt-001-failed-logons.png)
+![Failed logons](../screenshots/zohodesk/tkt-002/Screenshot%202026-09-01%20at%205.59.12%E2%80%AFAM.png)
 
-**Locked account located and full account state pulled to rule out disabled and expired conditions**
+**Password Reset**
 
-![Search-ADAccount](../screenshots/ad/tkt-001-search-lockedout.png)
-
-**Event 4740 showing the lockout event and Caller Computer Name**
-
-![Event 4740](../screenshots/ad/tkt-001-event-4740.png)
-
-**Unlock applied and verified — LockedOut False, BadLogonCount reset to 0**
-
-![Unlock verified](../screenshots/ad/tkt-001-unlock-verified.png)
+![Password Reset](../screenshots/zohodesk/tkt-002/Screenshot%202026-09-01%20at%205.59.12%E2%80%AFAM.png)
 
 **Zoho Desk ticket thread — triage, first response, and resolution**
 
