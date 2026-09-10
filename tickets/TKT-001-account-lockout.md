@@ -122,21 +122,25 @@ End-user guide for password resets: KB-001
 
 **Domain account lockout policy — threshold, duration, and observation window**
 
-![Lockout policy](../screenshots/ad/tkt-001-lockout-policy.png)
+![Lockout policy](../screenshots/zohodesk/tkt-001-lockout-policy.png)
 
 **Failed authentication sequence — five 1326 errors followed by 1909 once the threshold tripped**
 
-![Failed logons](../screenshots/ad/tkt-001-failed-logons.png)
+![Failed logons](../screenshots/zohodesk/tkt-001-failed-logons.png)
 
 **Locked account located and full account state pulled to rule out disabled and expired conditions**
 
-![Search-ADAccount](../screenshots/ad/tkt-001-search-lockedout.png)
+![Search-ADAccount](../screenshots/zohodesk/tkt-001-search-lockedout.png)
 
 **Event 4740 showing the lockout event and Caller Computer Name**
 
-![Event 4740](../screenshots/ad/tkt-001-event-4740.png)
+![Event 4740](../screenshots/zohodesk/tkt-001-event-4740.png)
 
 **Unlock applied and verified — LockedOut False, BadLogonCount reset to 0**
 
-![Unlock verified](../screenshots/ad/tkt-001-unlock-verified.png)
+![Unlock verified](../screenshots/zohodesk/tkt-001-unlock-verified.png)
+
+**Zoho Desk ticket thread — triage, first response, and resolution**
+
+![Zoho ticket](../screenshots/zoho/tkt-001-ticket-thread.png)
 
