@@ -72,7 +72,7 @@ Every ticket was worked to the same standard:
 **TKT-001 — Locating and unlocking a locked AD account**
 **Locked account located and full account state pulled to rule out disabled and expired conditions**
 
-![Search-ADAccount](../screenshots/zohodesk/tkt-001-search-lockedout.png)
+![Search-ADAccount](.../screenshots/zohodesk/tkt-001-search-lockedout.png)
 
 **TKT-003 — NTFS vs. share permission conflict on effective access**
 **Event 4740 showing the lockout event and Caller Computer Name**
@@ -86,13 +86,10 @@ Every ticket was worked to the same standard:
 
 
 **TKT-06 — Successful mount after adding client IP to network rules**
-**Zoho Desk ticket thread — triage, first response, and resolution**
-
 ![Successful mount](screenshots/azure/tkt-005-mount-success.png)
-![Zoho ticket](../screenshots/zoho/tkt-001-ticket-thread.png)
 
 **Zohodesk queue with tickets across all priorities**
-![ZohoDesk Queue](../screenshots/zohodesk/Zohodesk%20Tickets.png)
+![ZohoDesk Queue](.../screenshots/zohodesk/Zohodesk%Tickets.png)
 
 ## Solution
 
