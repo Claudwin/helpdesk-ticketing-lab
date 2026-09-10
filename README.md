@@ -72,21 +72,20 @@ Every ticket was worked to the same standard:
 **TKT-001 — Locating and unlocking a locked AD account**
 **Locked account located and full account state pulled to rule out disabled and expired conditions**
 
-![Search-ADAccount](../main/screenshots/zohodesk/tkt-001-event-4740.png)
+![Search-ADAccount](../main/screenshots/zohodesk/tkt-001-search-lockedout.png)
 
 **TKT-003 — NTFS vs. share permission conflict on effective access**
 **Event 4740 showing the lockout event and Caller Computer Name**
 
-![Event 4740](../screenshots/zohodesk/tkt-001-event-4740.png)
+![Event 4740](../main/screenshots/zohodesk/tkt-001-event-4740.png)
 
-**TKT-005 — Azure Files mount failure traced to storage account firewall**
-**Unlock applied and verified — LockedOut False, BadLogonCount reset to 0**
+**TKT-005 — Azure Files access failure traced to storage account firewall**
+**Eliminating RBAC and transport layers, confirmed via Activity log, fixed by adding the legitimate IP**
+![Fixed Access](../main/screenshots/zohodesk/tkt-005/tkt-005-14-fix-storage-browser-success.png)
 
-![Networking blade before fix](screenshots/azure/tkt-005-networking-before.png)
-
-
-**TKT-06 — Successful mount after adding client IP to network rules**
-![Successful mount](screenshots/azure/tkt-005-mount-success.png)
+**TKT-06 — Blob Access Expired**
+**Domain account lockout policy — threshold, duration, and observation window**
+![Access denied error](../main/screenshots/zohodesk/tkt-006/tkt-006-03-fault-sas-expired.png)
 
 **Zohodesk queue with tickets across all priorities**
 ![ZohoDesk Queue](.../screenshots/zohodesk/Zohodesk%Tickets.png)
@@ -112,9 +111,9 @@ Every ticket was worked to the same standard:
 
 **PowerShell** — Directory queries and remediation using `Search-ADAccount`, `Unlock-ADAccount`, `Set-ADAccountPassword`, and `Get-ADUser` with property filtering.
 
-**Service desk operations** — Ticket triage and prioritization against defined criteria, SLA policy design and measurement, tier 1 to tier 2 escalation criteria, knowledge base authoring for ticket deflection, queue metrics analysis.
+**Service desk operations** — Ticket triage and prioritization against defined criteria, SLA policy design and measurement.
 
-**Technical documentation** — Structured incident write-ups with reproducible diagnosis paths, root cause analysis in Cause / Fix / Prevention format, end-user facing knowledge base articles.
+**Technical documentation** — Structured incident write-ups with reproducible diagnosis paths, root cause analysis in Cause / Fix / Prevention format.
 
 ---
 
