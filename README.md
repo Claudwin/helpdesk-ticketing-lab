@@ -72,7 +72,7 @@ Every ticket was worked to the same standard:
 **TKT-001 — Locating and unlocking a locked AD account**
 **Locked account located and full account state pulled to rule out disabled and expired conditions**
 
-![Search-ADAccount](.../screenshots/zohodesk/tkt-001-search-lockedout.png)
+![Search-ADAccount](../main/screenshots/zohodesk/tkt-001-event-4740.png)
 
 **TKT-003 — NTFS vs. share permission conflict on effective access**
 **Event 4740 showing the lockout event and Caller Computer Name**
