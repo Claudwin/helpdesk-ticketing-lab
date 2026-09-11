@@ -1,6 +1,6 @@
-# TKT-009 — Printer Not printing
+# TKT-010 — Slow Computer Performance 
 
-## Diagnostic Path for Printer
+## Slow Computer Performance Diagnostic Workflow
 
 | Field | Value |
 |-------|-------|
