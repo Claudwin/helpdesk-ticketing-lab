@@ -57,7 +57,7 @@ credential and should be redacted anywhere a link is pasted or screenshotted.
 **Generated a replacement read-only SAS**
 ![ZohoDesk Queue](../main/screenshots/zohodesk/Zohodesk%20Tickets.png)
 
-![read-only SAS](../blob/main/screenshots/zohodesk/tkt-006/sas-generation.png)
+![read-only SAS](../screenshots/zohodesk/tkt-006/sas-generation.png)
 
 **SAS token with a short expiry lapsed**
 
