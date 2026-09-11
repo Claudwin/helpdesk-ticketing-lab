@@ -73,7 +73,7 @@ Rule out background maintenance tasks or corrupted OS files. 
 ```DISM.exe /Online /Cleanup-image /Restorehealth```
 ```sfc /scannow```
 
-### 7. Profile & Malware Isolation (The Final Pivot)
+### 7. Profile & Malware Isolation 
 
 Isolate whether the slowdown is system-wide or restricted to a corrupted user profile or malware infection. 
 
