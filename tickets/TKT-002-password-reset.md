@@ -85,4 +85,4 @@ Enable expiry notifications so users are warned before the deadline, and publish
 
 **Zoho Desk ticket thread — triage, first response, and resolution**
 
-![Zoho ticket](../screenshots/zoho/tkt-001-ticket-thread.png)
+![Zoho ticket](../screenshots/zohodesk/tkt-002/tkt-0002%20resolution%20email.png)
