@@ -19,43 +19,55 @@ User reported that they were unable to access their account due to VPN connectiv
 
 ## Diagnosis
 
-**Reviewed Lisa account to verify the properties.**
+Get-ADUser -Identity lwong -Properties Enabled,LockedOut,PasswordExpired,AccountExpirationDate
 
-```powershell
-Get-ADUser -Identity <her SamAccountName> -Properties Enabled,LockedOut,PasswordExpired,AccountExpirationDate | Format-List
-```
-Confirmed that Lisa's account expired AccountExpirationDate: 9/1/2026 12:00:00 AM 
 
-Confirmed Lisa didn't have access.  
+| Property | Value | Hypothesis |
+|---|---|---|
+| Enabled | True | Ruled out — account not disabled |
+| LockedOut | False | Ruled out — not a lockout |
+| PasswordExpired | True | Ruled out — attributable to `ChangePasswordAtLogon` set at initial provisioning on all lab accounts, consistent with the user's report that her reset worked fine afterward |
+| AccountExpirationDate | 9/1/2026 (past) | Confirmed |
 
+Verified via interactive logon as `lisa.wong@enterprise.lab`, which returned
+an account-expired message distinct from a standard bad-credential error —
+confirming the cause before any change was made.
 
 ## Resolution
+Extended the expiration date and confirmed restored access.
 
-**Reset Expiration Date on Account**
+Set-ADUser -Identity lwong -AccountExpirationDate "null"
 
+
+Verified with `Get-ADUser -Properties AccountExpirationDate`, then repeated
+the interactive logon test — succeeded normally.
 
 ## Cause / Fix / Prevention
+**Cause:** `AccountExpirationDate` had passed. This blocks all
+authentication independent of password state, which is why the symptom
+presented as a credentials issue when the password was never actually
+invalid.
 
-Account Expired blocking the account from being accessed entirely
+**Fix:** Extended the expiration date, verified successful logon before
+closing the ticket.
 
-**Fix:** 
-```powershell 
-Set-ADUser -Identity lwong -AccountExpirationDate $null
-```
-
-Cleared the expiration date property on the account so it never expires.
-
-**Prevention**
-Flag accounts nearing their expiration date in advance (a scheduled Get-ADUser -Filter report is a common approach) so IT can confirm with the department whether an extension is needed before it lapses and generates a ticket.
+**Prevention:** Run a scheduled report on accounts nearing their expiration
+date so the relevant department can confirm ahead of time whether an
+extension is needed, rather than discovering it only after the account has
+already lapsed and a ticket is filed.
 
 
 ## Screenshots
 
-**Domain account lockout policy — threshold, duration, and observation window**
+**Get-ADUser -Identity lwong -Properties**
 
-![Access denied error](../screenshots/ad/tkt-003-access-denied.png)
+![Get-ADUser -Identity lwong -Properties](../screenshots/zohodesk/tkt-004/Identity%20lwong%20Propertie.png)
 
-**Failed authentication sequence — five 1326 errors followed by 1909 once the threshold tripped**
+**Extended the expiration date and confirmed restored access.**
 
-![Failed logons](../screenshots/ad/tkt-001-failed-logons.png)
+![Extended Expiration](../screenshots/zohodesk/tkt-004-Extended%20the%20expiration.png)
+
+**Zoho Desk ticket thread — triage, first response, and resolution**
+
+![Zoho ticket](../screenshots/zohodesk/tkt-004/tkt-004%20resolution%20email.png)
 
