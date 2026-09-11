@@ -15,42 +15,56 @@
 
 ## Symptom
 
-User reported that they were unable to access the shared folder in azure and access needed files. They were able to access the files yerterday but not today.
+User reported that a link to a shared report returned an access denied
+error. The link had worked when it was first sent. No other users affected;
+no changes made to the file or the storage account.
 
 ## Diagnosis
 
-**Reviewed storage account securoty properties and activity log.**
+Reproduced the failure with `curl -i` against the original URL. The response
+body named the cause directly:
 
-Portal error said 401 / "you don't have access" → checked role assignments and found them unchanged; account has no identity-based auth configured, so ACLs aren't in play → authorization eliminated <br/>
-```nc``` to port 445 succeeded → endpoint reachable, DNS resolving, transport fine → network reachability eliminated <br/>
-Storage firewall showed defaultAction: Deny with an allow list not containing the client IP → cause identified<br/>
-Activity log confirmed who changed it and when
+- Status: `403`
+- `x-ms-error-code`: `AuthenticationFailed`
+- `AuthenticationErrorDetail`: signature not valid in the specified time
+  frame, with start, expiry, and current server time
+
+The SAS token had been issued with a short expiry window that had since
+lapsed. No misconfiguration and no change record — the Activity log showed
+nothing, because nothing was changed.
 
 
 ## Resolution
 
-**Update the ip address to the correct dominn**
-
+## Resolution
+1. Generated a replacement read-only SAS on the same blob with a 7-day expiry
+2. Verified `200 OK` via `curl -I`
+3. Confirmed same `ETag` — the blob itself was unchanged
 
 ## Cause / Fix / Prevention
-
-Shared folder was setup with with a default deny all and was set to enable for specific networks. The ip address that was enabled was incorrect.
-
-**Fix:** 
-
-I keept the setting for enabled from slected networks and update the ip address to the correct address. Allowing only those who should have access will.
+**Cause:** SAS expiry elapsed. Expiry is signed into the token, so the
+credential became invalid at a fixed point in time with no action by anyone.
 
 
 **Prevention**
 
-For any Azure Storage access failure, check networkRuleSet before auditing IAM. It's one command, it's cheap, and it eliminates the layer that produces the most misleading error message.
+**Prevention:** A SAS with an embedded expiry cannot be extended or revoked
+individually — the only lever is rotating the account key, which invalidates
+every token signed with it. Stored access policies hold the expiry and
+permissions on the container instead, referenced by `si=`, so a link can be
+extended or revoked server-side. Demonstrated below. Also: `sig` is a
+credential and should be redacted anywhere a link is pasted or screenshotted.
 
 ## Screenshots
 
-**Domain account lockout policy — threshold, duration, and observation window**
+**Generated a replacement read-only SAS**
 
-![Access denied error](../screenshots/ad/tkt-003-access-denied.png)
+![read-only SAS](../main/screenshots/zohodesk/tkt-006/sas-generation.png)
 
-**Failed authentication sequence — five 1326 errors followed by 1909 once the threshold tripped**
+**SAS token with a short expiry lapsed**
 
-![Failed logons](../screenshots/ad/tkt-001-failed-logons.png)
+![Access denied error](../main/screenshots/zohodesk/tkt-006/tkt-006-03-fault-sas-expired.png)
+
+**SAS token access policy works**
+
+![stored-access-policy-works.png](../main/screenshots/zohodesk/tkt-006/stored-access-policy-works.png)
