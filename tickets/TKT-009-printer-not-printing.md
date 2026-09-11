@@ -7,7 +7,7 @@
 |-------|-------|
 | **User** | Lisa Wong |
 | **Priority** | Medium |
-| **Category** | Software |
+| **Category** | Hardware |
 
 ---
 
