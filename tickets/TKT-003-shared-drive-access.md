@@ -17,36 +17,46 @@
 
 User reported that they were unable to reports folder and that they are getting I don't have permission message. User states they still have access to the sales folder and only unable to access reports folder.
 
+
 ## Diagnosis
+Reviewed the access chain from identity through to the folder.
 
-**Reviewed Thomas account to verify the properties.**
+Get-ADUser -Identity therrera -Properties MemberOf
+Get-ADGroupMember -Identity DL_FileShare_Sales_Modify
 
-```powershell
-Get-ADUser -Identity therrera -Properties MemberOf | Select -ExpandProperty MemberOf
-```
-Confirmed that tomas has access to the sales folder but not the reports folder.
 
-Signed in as therrera and tried to get access to reports folder to recreate the issue. 
+| Layer | Value | Hypothesis |
+|---|---|---|
+| Group membership | `therrera` in `GG_Sales_Users` | Ruled out — identity chain intact |
+| Group nesting | `GG_Sales_Users` in `DL_FileShare_Sales_Modify` (Modify) | Ruled out — AGDLP chain correct |
+| Share permissions on `Sales` | `DL_FileShare_Sales_Modify` — Modify | Ruled out |
+| NTFS on `Sales` (parent) | `DL_FileShare_Sales_Modify` — Modify | Ruled out |
+| NTFS on `Reports` (subfolder) | Inheritance disabled; group absent from ACL | Confirmed |
 
-Confirmed Tomas didn't have access.  
-
+Reproduced as the user via `runas /netonly` against the UNC path
+(`\\DC01\Sales\Reports`) — plain `runas` first returned error 1385, since
+domain controllers restrict interactive logon for standard accounts by
+design. `/netonly` applies the credential to network authentication only,
+which is the correct way to test share/NTFS access without an interactive
+session. Result matched the reported symptom.
 
 ## Resolution
-
-**Enable inheritance on reports folder**
-
+1. Re-enabled inheritance on `Reports`, restoring `DL_FileShare_Sales_Modify`
+   from the parent
+2. Verified the group present in the resulting ACL
+3. Re-ran the `/netonly` access test — succeeded
 
 ## Cause / Fix / Prevention
 
-Permission inheritance was not enabled on reports folder
+**Cause:** Inheritance had been disabled on the `Reports` subfolder,
+disconnecting it from the parent's permissions. The share, the parent
+folder, and the group chain were all correctly configured throughout.
 
-**Fix:** On Reports → Properties → Security → Advanced → Enable inheritance (this restores DL_FileShare_Sales_Modify's permissions from the parent). Screenshot the restored ACL as tkt-003-ntfs-reports-fixed.png.
+**Fix:** Re-enabled inheritance on `Reports`, verified restored access.
 
-**Prevention**
-
-Enable enable permissions inheritance when creating new folders.
-
-End-user guide to request shared drive access: KB-002 - Requesting shared drive access
+**Prevention:** Audit subfolder permissions after any share reorganization —
+disabling inheritance on a child folder produces no warning and silently
+diverges it from the parent.
 
 ## Screenshots
 
@@ -64,4 +74,4 @@ End-user guide to request shared drive access: KB-002 - Requesting shared drive 
 
 **Zoho Desk ticket thread — triage, first response, and resolution**
 
-![Zoho ticket](../screenshots/zoho/tkt-001-ticket-thread.png)
+![Zoho ticket](../screenshots/zohodesk/tkt-003/tkt-003%20email%20response.png)
