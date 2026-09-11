@@ -55,14 +55,13 @@ credential and should be redacted anywhere a link is pasted or screenshotted.
 ## Screenshots
 
 **Generated a replacement read-only SAS**
-![ZohoDesk Queue](../main/screenshots/zohodesk/Zohodesk%20Tickets.png)
 
 ![read-only SAS](../screenshots/zohodesk/tkt-006/sas-generation.png)
 
 **SAS token with a short expiry lapsed**
 
-![Access denied error](../main/screenshots/zohodesk/tkt-006/tkt-006-03-fault-sas-expired.png)
+![Access denied error](../screenshots/zohodesk/tkt-006/tkt-006-03-fault-sas-expired.png)
 
 **SAS token access policy works**
 
-![stored-access-policy-works.png](../main/screenshots/zohodesk/tkt-006/stored-access-policy-works.png)
+![stored-access-policy-works.png](../screenshots/zohodesk/tkt-006/stored-access-policy-works.png)
