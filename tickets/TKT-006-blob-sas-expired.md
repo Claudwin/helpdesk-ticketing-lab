@@ -33,9 +33,6 @@ The SAS token had been issued with a short expiry window that had since
 lapsed. No misconfiguration and no change record — the Activity log showed
 nothing, because nothing was changed.
 
-
-## Resolution
-
 ## Resolution
 1. Generated a replacement read-only SAS on the same blob with a 7-day expiry
 2. Verified `200 OK` via `curl -I`
@@ -58,8 +55,9 @@ credential and should be redacted anywhere a link is pasted or screenshotted.
 ## Screenshots
 
 **Generated a replacement read-only SAS**
+![ZohoDesk Queue](../main/screenshots/zohodesk/Zohodesk%20Tickets.png)
 
-![read-only SAS](../main/screenshots/zohodesk/tkt-006/sas-generation.png)
+![read-only SAS](../blob/main/screenshots/zohodesk/tkt-006/sas-generation.png)
 
 **SAS token with a short expiry lapsed**
 
